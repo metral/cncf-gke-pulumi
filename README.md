@@ -15,6 +15,8 @@ Optional, but good-to-have:
 - [ ] [Harbor](https://goharbor.io/) - container image repository
 - [ ] [Tekton](http://tekton.dev/) - native k8s ci/cd
 
+The Pulumi program entrypoint is [index.ts](./index.ts)
+
 ## Pulumi Requirements
 
 1. [Ensure you have the latest Node.js and NPM](https://nodejs.org/en/download/)
