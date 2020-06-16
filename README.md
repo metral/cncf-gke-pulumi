@@ -112,7 +112,21 @@ Updating (dev):
  +   │  ├─ kubernetes:apiextensions.k8s.io:CustomResourceDefinition                httpapispecs.config.istio.io                       created
  +   │  ├─ kubernetes:apiextensions.k8s.io:CustomResourceDefinition                adapters.config.istio.io                           created
  +   │  ├─ kubernetes:apiextensions.k8s.io:CustomResourceDefinition                templates.config.istio.io                          created
-...
+
+Outputs:
+    appsNamespaceName           : "apps-0gcziryf"
+    berglasWebhookEndpoint      : "https://us-central1-pulumi-development.cloudfunctions.net/berglas-0553f78"
+    clusterName                 : "cncf-gke-pulumi-3fa1dd0"
+    istioDomain                 : "35.230.107.2.xip.io"
+    k8sBerglasServiceAccountName: "berglas-0wmpoog6"
+    kubeconfig                  : "[secret]"
+
+Resources:
+    + 102 created
+
+Duration: 5m6s
+
+Permalink: https://app.pulumi.com/metral/cncf-gke-pulumi/dev/updates/1
 ```
 
 ### Use the GKE cluster and verify it's up
