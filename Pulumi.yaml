@@ -1,0 +1,3 @@
+name: cncf-gke-pulumi
+description: Deploys a Kubernetes cluster on GKE.
+runtime: nodejs
