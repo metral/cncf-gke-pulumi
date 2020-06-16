@@ -1,5 +1,4 @@
 # GKE, Pulumi, and Knative.
-
 Deploys a Kubernetes cluster on GKE and installs the following technologies to
 demo a serverless streaming application.
 
@@ -8,7 +7,7 @@ demo a serverless streaming application.
 - [x] [Knative Serving](https://github.com/knative/serving) - used to manage the serverless applications.
 - [x] [Knative Eventing](https://github.com/knative/eventing) - used to manage the serverless eventing.
 - [x] [Berglas](https://github.com/GoogleCloudPlatform/berglas) - an open source Key Management System (KMS) tool.
-- [ ] [Strimzi](https://strimzi.io/) - open source Kafka operator.
+- [x] [Strimzi](https://strimzi.io/) - open source Kafka operator.
 
 Optional, but good-to-have:
 
@@ -373,15 +372,28 @@ Delete the Berglas example.
 kubectl delete -f envserver.yaml -n `pulumi stack output appsNamespaceName`
 ```
 
-### Run an Strimzi example
+### Run a Strimzi example
+
+View the Pods are running in the `kafka` namespace
+
+
+Start an example Producer. Once running, in the command prompt type a message e.g. 'hello world'
+
+```bash
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.18.0-kafka-2.5.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list `pulumi stack output kafkaEndpoint`:9092 --topic my-topic
+```
+
+Start an example Consumer. Messages from the producer should appear.
+
+```bash
+kubectl -n kafka run kafka-producer -ti --image=strimzi/kafka:0.18.0-kafka-2.5.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --broker-list `pulumi stack output kafkaEndpoint`:9092 --topic my-topic
+```
+
+### Run a Harbor example
 
 To be implemented.
 
-### Run an Harbor example
-
-To be implemented.
-
-### Run an Tekton example
+### Run a Tekton example
 
 To be implemented.
 

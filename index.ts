@@ -6,6 +6,7 @@ import { config } from "./config";
 import * as utils from "./utils";
 import * as knative from "./knative";
 import * as secrets from "./secrets";
+import * as streaming from "./streaming";
 import * as crypto from "crypto";
 
 const projectName = pulumi.getProject();
@@ -81,6 +82,19 @@ const berglas = new secrets.Berglas("berglas", {
 
 export const berglasWebhookEndpoint = berglas.endpoint;
 export const k8sBerglasServiceAccountName = berglas.k8sBerglasServiceAccount.metadata.name;
+
+//==============================================================================
+/*
+ * Strimzi Kafka Operator
+ */
+//==============================================================================
+
+// Install Strimzi Operator v0.18.0.
+const strimzi = new streaming.Strimzi("strimzi", {
+    provider,
+}, {dependsOn: [cluster]});
+
+export const kafkaEndpoint = strimzi.bootstrapEndpoint;
 
 //============================================================================== 
 /*
