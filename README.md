@@ -118,6 +118,7 @@ Outputs:
     clusterName                 : "cncf-gke-pulumi-3fa1dd0"
     istioDomain                 : "35.230.107.2.xip.io"
     k8sBerglasServiceAccountName: "berglas-0wmpoog6"
+	kafkaEndpoint               : 10.31.245.240
     kubeconfig                  : "[secret]"
 
 Resources:
@@ -376,6 +377,20 @@ kubectl delete -f envserver.yaml -n `pulumi stack output appsNamespaceName`
 
 View the Pods are running in the `kafka` namespace
 
+```bash
+$ kubectl get pods,svc -n kafka -o wide
+NAME                                                          READY   STATUS    RESTARTS   AGE   IP           NODE                                                  NOMINATED NODE   READINESS GATES
+pod/kafka-cluster-m3hi73ku-entity-operator-789c49c7f6-lfdcv   3/3     Running   0          21h   10.28.1.9    gke-cncf-gke-pulumi-3fa1-default-pool-6b9a2d5f-tkg5   <none>           <none>
+pod/kafka-cluster-m3hi73ku-kafka-0                            2/2     Running   0          21h   10.28.1.8    gke-cncf-gke-pulumi-3fa1-default-pool-6b9a2d5f-tkg5   <none>           <none>
+pod/kafka-cluster-m3hi73ku-zookeeper-0                        1/1     Running   0          21h   10.28.2.13   gke-cncf-gke-pulumi-3fa1-default-pool-6b9a2d5f-8zwn   <none>           <none>
+pod/strimzi-cluster-operator-6c9d899778-dkh2b                 1/1     Running   0          21h   10.28.0.17   gke-cncf-gke-pulumi-3fa1-default-pool-6b9a2d5f-7r9p   <none>           <none>
+
+NAME                                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE   SELECTOR
+service/kafka-cluster-m3hi73ku-kafka-bootstrap    ClusterIP   10.31.245.240   <none>        9091/TCP,9092/TCP,9093/TCP   21h   strimzi.io/cluster=kafka-cluster-m3hi73ku,strimzi.io/kind=Kafka,strimzi.io/name=kafka-cluster-m3hi73ku-kafka
+service/kafka-cluster-m3hi73ku-kafka-brokers      ClusterIP   None            <none>        9091/TCP,9092/TCP,9093/TCP   21h   strimzi.io/cluster=kafka-cluster-m3hi73ku,strimzi.io/kind=Kafka,strimzi.io/name=kafka-cluster-m3hi73ku-kafka
+service/kafka-cluster-m3hi73ku-zookeeper-client   ClusterIP   10.31.242.114   <none>        2181/TCP                     21h   strimzi.io/cluster=kafka-cluster-m3hi73ku,strimzi.io/kind=Kafka,strimzi.io/name=kafka-cluster-m3hi73ku-zookeeper
+service/kafka-cluster-m3hi73ku-zookeeper-nodes    ClusterIP   None            <none>        2181/TCP,2888/TCP,3888/TCP   21h   strimzi.io/cluster=kafka-cluster-m3hi73ku,strimzi.io/kind=Kafka,strimzi.io/name=kafka-cluster-m3hi73ku-zookeeper
+```
 
 Start an example Producer. Once running, in the command prompt type a message e.g. 'hello world'
 
