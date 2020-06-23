@@ -74,7 +74,7 @@ export class Strimzi extends pulumi.ComponentResource {
 
         const svc = k8s.core.v1.Service.get("kafka-cluster-bootstrap-svc",
             pulumi.interpolate`${kafkaNamespace.metadata.name}/${kafkaCluster.metadata.name}-kafka-bootstrap`
-        );
+        , {provider: args.provider, dependsOn: kafkaCluster});
 
         this.bootstrapEndpoint = svc.spec.clusterIP;
     }
