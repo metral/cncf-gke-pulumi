@@ -1,9 +1,5 @@
-import { asset } from "@pulumi/pulumi";
 import * as pulumi from "@pulumi/pulumi";
-import * as gcp from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
-import * as rand from "@pulumi/random";
-import * as utils from "./utils";
 
 /*
  * StrimziArgs is the options to configure and deploy Strimzi as a Kubernetes

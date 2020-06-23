@@ -2,17 +2,13 @@
 Deploys a Kubernetes cluster on GKE and installs the following technologies to
 demo a serverless streaming application.
 
-- [x] GKE - k8s cluster on GCP.
-- [x] [Istio](https://knative.dev/docs/install/installing-istio) - service mesh required by Knative.
-- [x] [Knative Serving](https://github.com/knative/serving) - used to manage the serverless applications.
-- [x] [Knative Eventing](https://github.com/knative/eventing) - used to manage the serverless eventing.
-- [x] [Berglas](https://github.com/GoogleCloudPlatform/berglas) - an open source Key Management System (KMS) tool.
-- [x] [Strimzi](https://strimzi.io/) - open source Kafka operator.
-
-Optional, but good-to-have:
-
-- [ ] [Harbor](https://goharbor.io/) - container image repository
-- [ ] [Tekton](http://tekton.dev/) - native k8s ci/cd
+- GKE - k8s cluster on GCP.
+- [Istio](https://knative.dev/docs/install/installing-istio) - service mesh required by Knative.
+- [Knative Serving](https://github.com/knative/serving) - used to manage the serverless applications.
+- [Knative Eventing](https://github.com/knative/eventing) - used to manage the serverless eventing.
+- [Berglas](https://github.com/GoogleCloudPlatform/berglas) - an open source Key Management System (KMS) tool.
+- [Strimzi](https://strimzi.io/) - open source Kafka operator.
+- [Tekton](http://tekton.dev/) - native k8s ci/cd
 
 The Pulumi program entrypoint is [index.ts](./index.ts)
 
@@ -404,13 +400,33 @@ Start an example Consumer. Messages from the producer should appear.
 kubectl -n kafka run kafka-consumer -ti --image=strimzi/kafka:0.18.0-kafka-2.5.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server `pulumi stack output kafkaEndpoint`:9092 --topic my-topic --from-beginning
 ```
 
-### Run a Harbor example
-
-To be implemented.
-
 ### Run a Tekton example
 
-To be implemented.
+```bash
+cat > tekton-pipeline.yaml << EOF
+apiVersion: operator.tekton.dev/v1alpha1
+kind: TektonPipeline
+metadata:
+  name: cluster
+spec:
+  targetNamespace: tekton-pipelines
+EOF
+```
+
+Create the Tektoon Pipeline CustomResource and get it's status.
+
+```bash
+kubectl apply -f tekton-pipeline.yaml
+kubectl get tektonpipelines.operator.tekton.dev
+NAME      STATUS
+cluster   installed
+```
+
+Delete the Pipeline.
+
+```bash
+kubectl delete -f tekton-pipeline.yaml
+```
 
 ## Clean Up
 
