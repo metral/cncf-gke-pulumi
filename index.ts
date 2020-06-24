@@ -95,7 +95,7 @@ const strimzi = new streaming.Strimzi("strimzi", {
     provider,
 }, {dependsOn: [cluster]});
 
-export const kafkaEndpoint = strimzi.bootstrapEndpoint;
+//export const kafkaEndpoint = strimzi.bootstrapEndpoint;
 
 //============================================================================== 
 /*

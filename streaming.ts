@@ -14,7 +14,7 @@ export interface StrimziArgs {
  * Strimzi configures and deploys the Strimzi Kafka Operator on Kubernetes.
  */
 export class Strimzi extends pulumi.ComponentResource {
-    public readonly bootstrapEndpoint: pulumi.Output<string>;
+    // public readonly bootstrapEndpoint: pulumi.Output<string>;
     constructor(name: string,
         args: StrimziArgs,
         opts: pulumi.ComponentResourceOptions) {
@@ -72,10 +72,12 @@ export class Strimzi extends pulumi.ComponentResource {
             }
         }, {provider: args.provider, dependsOn: strimzi});
 
+        /*
         const svc = k8s.core.v1.Service.get("kafka-cluster-bootstrap-svc",
             pulumi.interpolate`${kafkaNamespace.metadata.name}/${kafkaCluster.metadata.name}-kafka-bootstrap`
         , {provider: args.provider, dependsOn: kafkaCluster});
 
         this.bootstrapEndpoint = svc.spec.clusterIP;
+        */
     }
 }
