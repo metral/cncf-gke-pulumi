@@ -35,6 +35,7 @@ const cluster = new gcp.container.Cluster(`${projectName}`, {
             "https://www.googleapis.com/auth/devstorage.read_only",
             "https://www.googleapis.com/auth/logging.write",
             "https://www.googleapis.com/auth/monitoring",
+            "https://www.googleapis.com/auth/cloud-platform",
         ],
         labels: {"instanceType": "n1-standard-2"},
         tags: ["pulumi-knative"],
